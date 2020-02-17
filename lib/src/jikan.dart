@@ -315,9 +315,9 @@ class Jikan {
 
     var jsonEncoded = json.decode(response);
     var results = jsonEncoded['results'];
-    final listSearch = FullType(BuiltList, [FullType(Search)]);
+    print(results);
     final listTop = FullType(BuiltList, [FullType(Top)]);
-    return serializers.deserialize(results, specifiedType: listSearch);
+    return serializers.deserialize(results, specifiedType: listTop);
   }
 
   Future<BuiltList<Top>> getTop(TopType type,
