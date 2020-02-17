@@ -308,6 +308,32 @@ class Jikan {
     return serializers.deserialize(results, specifiedType: listSearch);
   }
 
+  Future<BuiltList<Top>> searchByTop(String query, SearchType type,
+      {int page = 1}) async {
+    var url = baseUrl + '/search/${searchTypeString(type)}?q=$query&page=$page';
+    var response = await _getResponse(url);
+
+    var jsonEncoded = json.decode(response);
+    var results = jsonEncoded['results'];
+    final listSearch = FullType(BuiltList, [FullType(Search)]);
+    final listTop = FullType(BuiltList, [FullType(Top)]);
+    return serializers.deserialize(results, specifiedType: listTop);
+  }
+
+  Future<BuiltList<Top>> getTop(TopType type,
+      {TopSubtype subtype, int page = 1}) async {
+    var url = baseUrl + '/top/${topTypeString(type)}/$page';
+    if (subtype != null) {
+      url += '/${topSubtypeString(subtype)}';
+    }
+    var response = await _getResponse(url);
+
+    var jsonEncoded = json.decode(response);
+    var top = jsonEncoded['top'];
+    final listTop = FullType(BuiltList, [FullType(Top)]);
+    return serializers.deserialize(top, specifiedType: listTop);
+  }
+
   Future<Season> getSeason({int year, SeasonType season}) async {
     var url = baseUrl + '/season';
     if (year != null && season != null) {
@@ -345,19 +371,6 @@ class Jikan {
     return Schedule.fromJson(response);
   }
 
-  Future<BuiltList<Top>> getTop(TopType type,
-      {TopSubtype subtype, int page = 1}) async {
-    var url = baseUrl + '/top/${topTypeString(type)}/$page';
-    if (subtype != null) {
-      url += '/${topSubtypeString(subtype)}';
-    }
-    var response = await _getResponse(url);
-
-    var jsonEncoded = json.decode(response);
-    var top = jsonEncoded['top'];
-    final listTop = FullType(BuiltList, [FullType(Top)]);
-    return serializers.deserialize(top, specifiedType: listTop);
-  }
 
   Future<GenreList> getGenre(GenreType type, Genre genre,
       {int page = 1}) async {
