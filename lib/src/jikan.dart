@@ -315,7 +315,6 @@ class Jikan {
 
     var jsonEncoded = json.decode(response);
     var results = jsonEncoded['results'];
-    print(results);
     final listTop = FullType(BuiltList, [FullType(Top)]);
     return serializers.deserialize(results, specifiedType: listTop);
   }
