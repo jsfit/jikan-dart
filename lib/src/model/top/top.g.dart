@@ -20,8 +20,6 @@ class _$TopSerializer implements StructuredSerializer<Top> {
     final result = <Object>[
       'mal_id',
       serializers.serialize(object.malId, specifiedType: const FullType(int)),
-      'rank',
-      serializers.serialize(object.rank, specifiedType: const FullType(int)),
       'title',
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
@@ -34,6 +32,12 @@ class _$TopSerializer implements StructuredSerializer<Top> {
     if (object.type != null) {
       result
         ..add('type')
+        ..add(serializers.serialize(object.type,
+            specifiedType: const FullType(String)));
+    }
+    if (object.rank != null) {
+      result
+        ..add('rank')
         ..add(serializers.serialize(object.type,
             specifiedType: const FullType(String)));
     }
@@ -201,9 +205,7 @@ class _$Top extends Top {
     if (malId == null) {
       throw new BuiltValueNullFieldError('Top', 'malId');
     }
-    if (rank == null) {
-      throw new BuiltValueNullFieldError('Top', 'rank');
-    }
+   
     if (title == null) {
       throw new BuiltValueNullFieldError('Top', 'title');
     }
