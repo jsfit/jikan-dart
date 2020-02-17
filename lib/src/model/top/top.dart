@@ -17,15 +17,19 @@ abstract class Top implements Built<Top, TopBuilder> {
   int get malId;
 
   @BuiltValueField(wireName: 'rank')
+  @nullable
   int get rank;
 
   @BuiltValueField(wireName: 'title')
+  @nullable
   String get title;
 
   @BuiltValueField(wireName: 'url')
+  @nullable
   String get url;
 
   @BuiltValueField(wireName: 'image_url')
+  @nullable
   String get imageUrl;
 
   @BuiltValueField(wireName: 'type')
